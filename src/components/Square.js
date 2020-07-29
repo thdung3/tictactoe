@@ -6,47 +6,50 @@ export default class Square extends Component {
         const array = this.props.squareList.slice().map(function (row) { return row.slice(); });
         const x = this.props.x
         const y = this.props.y
-        let move = this.props.move
-        const history = this.props.history.splice(0, move)
+
         let gameOver = this.props.gameOver
         let timeStart = this.props.timeStart
-        if (array[x][y] === "" && !this.props.gameOver) {
-            if (move === 1) {
-                timeStart = Date.now()
-            }
-            let nextPlayer = ''
-            if (this.props.currentPlayer === "X") {
-                array[x][y] = "X"
-                nextPlayer = "O"
-            } else {
-                array[x][y] = "O"
-                nextPlayer = "X"
-            }
-            let winner = this.calculateWinner(array, x, y)
-
-            // Post new record
-            if (winner !== null) {
-                let timeEnd = Date.now();
-                let record = Math.round((timeEnd - timeStart) / 1000)
-                console.log('record:', record)
-                this.props.postData(record)
-            }
-            gameOver = winner !== null ? true : false
-            let fullSquare = true;
-            for (let i = 0; i < array.length; i++) {
-                for (let j = 0; j < array[i].length; j++) {
-                    if (array[i][j] === '') {
-                        fullSquare = false
-                        break;
-                    }
-                }
-                if (!fullSquare) break
-            }
-            move++
-            if (fullSquare) gameOver = true
-            history.push({ squareList: array, currentPlayer: nextPlayer, winner: winner, gameOver: gameOver, move: move, timeStart: timeStart })
-            this.props.setParentsState({ squareList: array, currentPlayer: nextPlayer, winner: winner, gameOver: gameOver, history: history, move: move, timeStart: timeStart })
+        if (array[x][y] !== "") return
+        if (this.props.gameOver) return
+        // if (array[x][y] === "" && !this.props.gameOver) {
+        let move = this.props.move
+        const history = this.props.history.splice(0, move).slice()
+        if (move === 1) {
+            timeStart = Date.now()
         }
+        let nextPlayer = ''
+        if (this.props.currentPlayer === "X") {
+            array[x][y] = "X"
+            nextPlayer = "O"
+        } else {
+            array[x][y] = "O"
+            nextPlayer = "X"
+        }
+        let winner = this.calculateWinner(array, x, y)
+
+        // Post new record
+        if (winner !== null) {
+            let timeEnd = Date.now();
+            let record = Math.round((timeEnd - timeStart) / 1000)
+            console.log('record:', record)
+            this.props.postData(record)
+        }
+        gameOver = winner !== null ? true : false
+        let fullSquare = true;
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                if (array[i][j] === '') {
+                    fullSquare = false
+                    break;
+                }
+            }
+            if (!fullSquare) break
+        }
+        move++
+        if (fullSquare) gameOver = true
+        history.push({ squareList: array, currentPlayer: nextPlayer, winner: winner, gameOver: gameOver, move: move, timeStart: timeStart })
+        this.props.setParentsState({ squareList: array, currentPlayer: nextPlayer, winner: winner, gameOver: gameOver, history: history, move: move, timeStart: timeStart })
+        // }
     }
 
     calculateWinner = (array, x, y) => {

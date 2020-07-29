@@ -7,7 +7,6 @@ export default class History extends Component {
         this.props.setParentsState(moveHistory)
     }
     render() {
-        // console.log('History.props:', this.props)
         return (
             <div>
                 {this.props.history.map((item, index) => {

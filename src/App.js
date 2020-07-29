@@ -29,14 +29,15 @@ export default class App extends Component {
         }
     }
     setParentsState = (object) => {
+        console.log('setParentsState')
         this.setState({ ...this.state, ...object })
     }
 
-    postData = async () => {
+    postData = async (record) => {
         console.log('*---- postData ----*')
         let data = new URLSearchParams();
         data.append("player", this.state.userName);
-        data.append("score", this.state.score);
+        data.append("score", record);
         const url = `http://ftw-highscores.herokuapp.com/tictactoe-dev`;
         const response = await fetch(url, {
             method: "POST",
@@ -50,6 +51,7 @@ export default class App extends Component {
     }
 
     getData = async () => {
+        console.log('*--- getData ---*')
         const url = `http://ftw-highscores.herokuapp.com/tictactoe-dev`
         const response = await fetch(url)
         const data = await response.json()
@@ -57,6 +59,7 @@ export default class App extends Component {
     }
 
     getDataFromLoginAndInit = (data) => {
+        console.log('*--- getDataFromLoginAndInit ---*')
         let history = []
         history.push({
             squareList: this.state.squareList,
@@ -74,20 +77,18 @@ export default class App extends Component {
             }
         }
         this.setState({ userName: data.userName, size: data.size, countWin: data.countToWin, page: 'main', history: history, squareList: squareList })
-        this.timeCounting()
+        // this.timeCounting()
     }
 
-    timeCounting = () => {
-        console.log('timeCounting:')
-        console.log('this.state.gameOver:', this.state.gameOver)
-        let score = this.state.score;
-        let myTime = setInterval(() => {
-            this.setState({ score: score++ })
-            if (this.state.gameOver) {
-                clearInterval(myTime);
-            }
-        }, 1000)// every 1 second, it will add 1 into time variable (computer use millisecond so 1000 is 1 second)
-    }
+    // timeCounting = () => {
+    //     let score = this.state.score;
+    //     let myTime = setInterval(() => {
+    //         this.setState({ ...this.state, score: score++ })
+    //         if (this.state.gameOver) {
+    //             clearInterval(myTime);
+    //         }
+    //     }, 1000)// every 1 second, it will add 1 into time variable (computer use millisecond so 1000 is 1 second)
+    // }
 
     componentDidMount = () => {
         this.getData()
@@ -105,8 +106,12 @@ export default class App extends Component {
                 <div className="main-background">
                     <h1 style={{ textAlign: "center", fontWeight: "700" }}>Tic Tac Toe</h1>
                     <p className="title">Username: {this.state.userName}</p>
-                    {this.state.gameOver ? <p className="title">Winner: {this.state.winner}</p> : <p className="title">Current Player: {this.state.currentPlayer}</p>}
-                    <p className="title">Score: {this.state.score}</p>
+                    {this.state.gameOver ?
+                        this.state.winner === null ?
+                            <p className="title">Game Over </p>
+                            : <p className="title">Winner: {this.state.winner}</p>
+                        : <p className="title">Current Player: {this.state.currentPlayer}</p>}
+
                     <div className="row" style={{ marginTop: "40px" }}>
                         <div id="area-board" className="col-sm-8">
                             <Board
