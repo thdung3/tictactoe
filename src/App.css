@@ -1,11 +1,42 @@
 .border-red{
     border: 1px solid red;
 }
+
+.main-background {
+  background: #191919;
+  padding: 50px;
+  color: white;
+}
+
 .square{
-  width: 200px;
-  height: 200px;
   border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .square-row{
     display: flex;
+}
+
+.square-value{
+  /* font-size: 200px; */
+  font-weight: 700;
+}
+#area-board{
+  display: flex;
+  justify-content: center;
+}
+.title{
+  font-weight: 700;
+  font-size: 20px;
+}
+#btn-history{
+  margin-bottom: 5px;
+  border: 2px solid white;
+  color: white;
+  background-color: black;
+}
+#btn-history:hover{
+  border: 2px solid red;
+  color: red;
 }

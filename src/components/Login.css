@@ -1,0 +1,45 @@
+.login-background {
+    margin: 0;
+    padding: 0;
+    background: #34495e;
+    color: white;
+    font-weight: 700;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    background: #191919;
+    padding: 50px;
+    /* text-align: center; */
+}
+.login-background h1 {
+    text-align: center;
+}
+#area-facebook-login {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+#area-login{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;  
+    
+}
+#btn-login{
+    border: 2px solid white;
+    color: white;
+    font-weight: 700;
+    background-color: #191919; 
+    padding: 5px;
+}
+#btn-login:hover{
+    border: 2px solid red;
+    color: red;
+}
+
+#text-username:focus{
+    outline: none;
+}

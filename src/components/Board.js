@@ -19,6 +19,11 @@ export default class Board extends Component {
                                         gameOver={this.props.gameOver}
                                         winner={this.props.winner}
                                         history={this.props.history}
+                                        move={this.props.move}
+                                        postData={this.props.postData}
+                                        timeStart={this.props.timeStart}
+                                        size={this.props.size}
+                                        countWin={this.props.countWin}
                                     />
                                 )
                             })}
