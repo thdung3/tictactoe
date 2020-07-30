@@ -60,15 +60,6 @@ export default class App extends Component {
 
     getDataFromLoginAndInit = (data) => {
         console.log('*--- getDataFromLoginAndInit ---*')
-        let history = []
-        history.push({
-            squareList: this.state.squareList,
-            currentPlayer: this.state.currentPlayer,
-            winner: this.state.winner,
-            gameOver: this.state.gameOver,
-            move: this.state.move,
-            timeStart: this.state.timeStart
-        })
         let squareList = []
         for (let i = 0; i < data.size; i++) {
             squareList.push([])
@@ -76,19 +67,17 @@ export default class App extends Component {
                 squareList[i].push('')
             }
         }
+        let history = []
+        history.push({
+            squareList: squareList,
+            currentPlayer: this.state.currentPlayer,
+            winner: this.state.winner,
+            gameOver: this.state.gameOver,
+            move: this.state.move,
+            timeStart: this.state.timeStart
+        })
         this.setState({ userName: data.userName, size: data.size, countWin: data.countToWin, page: 'main', history: history, squareList: squareList })
-        // this.timeCounting()
     }
-
-    // timeCounting = () => {
-    //     let score = this.state.score;
-    //     let myTime = setInterval(() => {
-    //         this.setState({ ...this.state, score: score++ })
-    //         if (this.state.gameOver) {
-    //             clearInterval(myTime);
-    //         }
-    //     }, 1000)// every 1 second, it will add 1 into time variable (computer use millisecond so 1000 is 1 second)
-    // }
 
     componentDidMount = () => {
         this.getData()
