@@ -121,7 +121,17 @@ export default class Square extends Component {
     render() {
         return (
             <div className="square" style={{ width: `${parseInt(780 / this.props.size)}px`, height: `${parseInt(780 / this.props.size)}px` }} onClick={() => this.selectSquare()}>
-                <p className="square-value" style={{ fontSize: `${parseInt(600 / this.props.size)}px` }}>{this.props.squareList[this.props.x][this.props.y]}</p>
+                {this.props.squareList[this.props.x][this.props.y] === 'X' ?
+                    <p className="square-value"
+                        style={{ fontSize: `${parseInt(600 / this.props.size)}px`, color: "blue" }}>
+                        {this.props.squareList[this.props.x][this.props.y]}
+                    </p>
+                    :
+                    <p className="square-value"
+                        style={{ fontSize: `${parseInt(600 / this.props.size)}px`, color: "orange" }}>
+                        {this.props.squareList[this.props.x][this.props.y]}
+                    </p>
+                }
             </div>
         )
     }
